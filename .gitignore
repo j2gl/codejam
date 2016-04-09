@@ -1,0 +1,10 @@
+# General Files
+.DS_Store
+
+# IntelliJ
+.idea
+*.iml
+*.ipr
+
+# Directories
+target/
