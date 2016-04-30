@@ -13,7 +13,7 @@ public class GettingDigits {
     public static int[] intNumbers = {0, 6, 4, 2, 8, 3, 5, 7, 1, 9};
 
 
-    public static boolean contains(String number, String data) {
+    private static boolean contains(String number, String data) {
         for (int i = 0; i < number.length(); i++) {
             if (data.indexOf(number.charAt(i)) == -1) {
                 return false;
@@ -22,7 +22,7 @@ public class GettingDigits {
         return true;
     }
 
-    public static String removeNumberLetters(String data, String number) {
+    private static String removeNumberLetters(String data, String number) {
         String s = data;
         for (int i = 0; i < number.length(); i++) {
             char c = number.charAt(i);
@@ -39,7 +39,7 @@ public class GettingDigits {
         return String.valueOf(array);
     }
 
-    private static String getDigits(final String data) {
+    public static String getDigits(final String data) {
         String result = "";
         String number;
         String inputString = data;
