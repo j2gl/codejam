@@ -9,20 +9,10 @@ public class CloseMatch {
     public static String newline = System.getProperty("line.separator");
 
 
-    private static boolean removeInitials(String c, String j) {
-        if (c.startsWith("?") && (j.startsWith("?"))) {
-            return true;
-        }
-        return false;
-    }
-
-    private static String closeMatch(final String data) {
-        String result;
+    public static String closeMatch(final String data) {
         String[] split = data.split(" ");
         String c = split[0];
         String j = split[1];
-        String cTemp = c;
-        String jTemp = j;
         String cResult = "";
         String jResult = "";
 
@@ -59,7 +49,6 @@ public class CloseMatch {
         }
 
         return cResult + " " + jResult;
-
     }
 
     public static void main(String[] args) {
