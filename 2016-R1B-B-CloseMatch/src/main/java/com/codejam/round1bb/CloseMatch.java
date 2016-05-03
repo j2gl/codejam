@@ -15,36 +15,53 @@ public class CloseMatch {
         String j = split[1];
         String cResult = "";
         String jResult = "";
+        long ci;
+        long ji;
+        long diff;
 
         for (int i = 0; i < c.length(); i++) {
             if (c.charAt(i) != '?' && j.charAt(i) != '?') {
                 cResult += c.charAt(i);
                 jResult += j.charAt(i);
-            }
-            if (c.charAt(i) == '?' && j.charAt(i) == '?') {
-                if (i == 0) {
-                    cResult += "0";
-                    jResult += "0";
-                } else  if (i > 0) {
-                    int ci = Integer.parseInt(cResult);
-                    int ji = Integer.parseInt(jResult);
-                    if ( ci == ji) {
+            } else {
+                ci = (i == 0 ? 0 : Long.parseLong(cResult));
+                ji = (i == 0 ? 0 : Long.parseLong(jResult));
+                diff = ci - ji;
+
+                if (diff == 0) {
+                    if (c.charAt(i) == '?' && j.charAt(i) == '?') {
                         cResult += "0";
                         jResult += "0";
-                    } else if (ci - ji < 0) {
+                    } else if (c.charAt(i) == '?' && j.charAt(i) != '?') { //7?9 750 = 759 750
+                        cResult += j.charAt(i);
+                        jResult += j.charAt(i);
+                    } else if (c.charAt(i) != '?' && j.charAt(i) == '?') { //750 7?9 = 750 750
+                        cResult += c.charAt(i);
+                        jResult += c.charAt(i);
+                    }
+                } else if (diff < 0) { // 1? 2? = 19 20
+                    if (c.charAt(i) == '?' && j.charAt(i) == '?') {
                         cResult += "9";
                         jResult += "0";
-                    } else {
+                    } else if (c.charAt(i) == '?' && j.charAt(i) != '?') { // 1? 25 = 19 25
+                        cResult += "9";
+                        jResult += j.charAt(i);
+                    } else if (c.charAt(i) != '?' && j.charAt(i) == '?') { // 19 2? = 19 20
+                        cResult += c.charAt(i);
+                        jResult += "0";
+                    }
+                } else if (diff > 0) {
+                    if (c.charAt(i) == '?' && j.charAt(i) == '?') { // 2? 1? = 20 29
                         cResult += "0";
+                        jResult += "9";
+                    } else if (c.charAt(i) == '?' && j.charAt(i) != '?') { // 2? 19 = 20 19
+                        cResult += "0";
+                        jResult += j.charAt(i);
+                    } else if (c.charAt(i) != '?' && j.charAt(i) == '?') { // 27 1? = 27 19
+                        cResult += c.charAt(i);
                         jResult += "9";
                     }
                 }
-            } else if (c.charAt(i) != '?' && j.charAt(i) == '?') {
-                cResult += c.charAt(i);
-                jResult += c.charAt(i);
-            } else if (c.charAt(i) == '?' && j.charAt(i) != '?') {
-                cResult += j.charAt(i);
-                jResult += j.charAt(i);
             }
         }
 
