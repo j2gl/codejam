@@ -44,6 +44,14 @@ public class CloseMatchTest {
 
         result = closeMatch("27 1?");
         Assert.assertThat(result, is("27 19"));
+
+        result = closeMatch("?7 ?7");
+        Assert.assertThat(result, is("07 07"));
+
+        result = closeMatch("??7 ??7");
+        Assert.assertThat(result, is("007 007"));
+
+
     }
 
     @Test
@@ -97,10 +105,10 @@ public class CloseMatchTest {
     }
 
     @Test
-    public void closeMatch_08() throws Exception {
-        String input = "8?7 ??0";
+    public void closeMatch_09() throws Exception {
+        String input = "?7 ?0";
         String result = closeMatch(input);
-        Assert.assertThat(result, is("807 810"));
+        Assert.assertThat(result, is("07 10"));
     }
 
 

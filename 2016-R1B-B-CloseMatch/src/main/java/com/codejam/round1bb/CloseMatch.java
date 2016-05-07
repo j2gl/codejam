@@ -18,6 +18,7 @@ public class CloseMatch {
         long ci;
         long ji;
         long diff;
+        int length = c.length();
 
         for (int i = 0; i < c.length(); i++) {
             if (c.charAt(i) != '?' && j.charAt(i) != '?') {
@@ -30,8 +31,31 @@ public class CloseMatch {
 
                 if (diff == 0) {
                     if (c.charAt(i) == '?' && j.charAt(i) == '?') {
-                        cResult += "0";
-                        jResult += "0";
+                        if (i == (length - 1)) {
+                            cResult += "0";
+                            jResult += "0";
+                        } else {
+                            if (c.charAt(i + 1) == '?' && j.charAt(i + 1) == '?') {
+                                cResult += "0";
+                                jResult += "0";
+                            }
+                            if (c.charAt(i + 1) != '?' && j.charAt(i + 1) != '?') {
+                                int diff2 = c.charAt(i + 1) - j.charAt(i + 1);
+                                if (diff2 == 0) { // ?7 ?7 = 07 07 // also test ??7 ??7 = 007 007
+                                    cResult += "0";
+                                    jResult += "0";
+                                } else if (diff2 < 0) { // ?5 ?6 = 15 06
+                                    cResult += "1";
+                                    jResult += "0";
+                                } else if (diff2 > 0) { // ?6 ?5 = 05 16
+                                    cResult += "1";
+                                    jResult += "0";
+                                }
+                            } else if (c.charAt(i + 1) != '?' && j.charAt(i + 1) == '?') {
+
+                            }
+                            // ?7 ?0 = 07 10
+                        }
                     } else if (c.charAt(i) == '?' && j.charAt(i) != '?') { //7?9 750 = 759 750
                         cResult += j.charAt(i);
                         jResult += j.charAt(i);
@@ -86,11 +110,11 @@ public class CloseMatch {
         try {
             in = new BufferedReader(new FileReader(args[0]));
             out = new FileWriter(args[1]);
-            while ( (line = in.readLine()) != null) {
+            while ((line = in.readLine()) != null) {
                 count++;
                 if (count == 1) {
                     totalTestCases = Integer.valueOf(line);
-                    System.out.println("In file number of test cases: "	+ totalTestCases + ".");
+                    System.out.println("In file number of test cases: " + totalTestCases + ".");
                 } else {
                     testCasesCounter++;
                     result = closeMatch(line);
