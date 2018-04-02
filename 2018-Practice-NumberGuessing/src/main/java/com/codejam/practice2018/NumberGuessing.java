@@ -4,7 +4,16 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class NumberGuessing {
-    
+
+    private static final String BIG = "TOO_BIG";
+    private static final String SMALL = "TOO_SMALL";
+    private static final String CORRECT = "CORRECT";
+    private static final String WRONG = "WRONG_ANSWER";
+
+    private static void guess(int min, int max) {
+
+    }
+
     public static void main(final String[] args) {
 
         Scanner scanner = new Scanner(System.in);
