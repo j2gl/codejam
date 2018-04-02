@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group 'com.codejam.practice2018'
+version '1.0.0'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'rename',
+                   'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '5.+'
+}
