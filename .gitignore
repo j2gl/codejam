@@ -8,3 +8,5 @@
 
 # Directories
 target/
+
+.gradle/
