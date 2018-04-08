@@ -9,4 +9,7 @@
 # Directories
 target/
 
+# Build tools
 .gradle/
+build/
+out/
