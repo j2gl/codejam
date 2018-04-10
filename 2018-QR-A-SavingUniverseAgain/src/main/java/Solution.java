@@ -1,61 +1,68 @@
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class Solution {
+public final class Solution {
 
-    public static void main(String[] args) {
-        saveUniverse(System.in);
+    public static void main(final String[] args) {
+        doSaveUniverse(System.in);
     }
 
-    static void saveUniverse(InputStream in) {
+    public static void doSaveUniverse(final InputStream in) {
         final Scanner scanner = new Scanner(in);
         final int totalCases = Integer.parseInt(scanner.nextLine());
         int currentCase = 1;
         for (int i = 0; i < totalCases; i++) {
-            String line = scanner.nextLine();
-            String[] data = line.split(" ");
-            long maxDamage = Long.parseLong(data[0]);
-            String program = data[1];
-
-            long totalDamage = calculateDamage(program);
-            boolean possible = true;
-            int numberHacks = 0;
-            while (totalDamage > maxDamage && possible) {
-                if (program.contains("CS")) {
-                    program = hack(program);
-                    numberHacks++;
-                } else {
-                    possible = false;
-                }
-                totalDamage = calculateDamage(program);
-            }
-
-            String answer = (possible ? String.valueOf(numberHacks) : "IMPOSSIBLE");
-            System.out.println("Case #"+ (currentCase++) + ": " + answer);
+            final String line = scanner.nextLine();
+            final String[] data = line.split(" ");
+            final long maxDamage = Long.parseLong(data[0]);
+            final String program = data[1];
+            final String answer = saveUniverse(program, maxDamage);
+            System.out.println("Case #" + (currentCase++) + ": " + answer);
         }
         scanner.close();
     }
 
-    static String hack(String program) {
+    static String saveUniverse(final String program, final long maxDamage) {
+        long totalDamage = calculateDamage(program);
+        boolean possible = true;
+        int numberHacks = 0;
         String newProgram = program;
-        if (newProgram.contains("CS")) {
-            newProgram = program.replaceFirst("CS", "SC");
+        while (totalDamage > maxDamage && possible) {
+            if (program.contains("CS")) {
+                newProgram = hack(newProgram);
+                numberHacks++;
+            } else {
+                possible = false;
+            }
+            totalDamage = calculateDamage(newProgram);
         }
-        return newProgram;
-
+        return (possible ? String.valueOf(numberHacks) : "IMPOSSIBLE");
     }
 
-    static long calculateDamage(String s) {
+    private static String hack(final String program) {
+        String newProgram = program;
+        for (int i = program.length() - 2; i >= 0; i--) {
+            if (newProgram.substring(i, i+2).equals("CS")) {
+                final char[] chars = newProgram.toCharArray();
+                chars[i] = 'S';
+                chars[i+1] = 'C';
+                newProgram = String.valueOf(chars);
+                break;
+            }
+        }
+        return newProgram;
+    }
+
+    private static long calculateDamage(final String s) {
         int strength = 1;
         int damage = 0;
-        for (int i = 0 ; i < s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             final char c = s.charAt(i);
-            switch (c) {
-                case 'C':
-                    strength*=2;
-                    break;
-                case 'S':
-                    damage += strength;
+            if (c == 'C') {
+                strength *= 2;
+
+            } else if (c == 'S') {
+                damage += strength;
             }
         }
         return damage;
