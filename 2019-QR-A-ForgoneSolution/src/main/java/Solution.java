@@ -10,7 +10,7 @@ public class Solution {
         doForegoneSolution(Solution.class.getClassLoader().getResourceAsStream("big.txt"));
     }
 
-    static void doForegoneSolution(InputStream in) {
+    private static void doForegoneSolution(InputStream in) {
         final Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(in)));
 
         // Take the number of cases
@@ -27,13 +27,13 @@ public class Solution {
         scanner.close();
     }
 
-    private static String findNumbersWithout4(long n1, long n2) {
+    static String findNumbersWithout4(long n1, long n2) {
         if (hasNotAFour(n1) && (hasNotAFour(n2))) {
             return n1 + " " + n2;
         }
         final long multiple = findMultiple(String.valueOf(n1));
 
-        return findNumbersWithout4(n1 - multiple - 1, n2 + multiple + 1);
+        return findNumbersWithout4(n1 - multiple, n2 + multiple);
     }
 
     private static boolean hasNotAFour(long n) {
