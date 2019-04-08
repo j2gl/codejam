@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Solution {
 
     public static void main(String[] args) {
-        doForegoneSolution(System.in);
-        // doForegoneSolution(Solution.class.getClassLoader().getResourceAsStream("example.txt"));
+//        doForegoneSolution(System.in);
+        doForegoneSolution(Solution.class.getClassLoader().getResourceAsStream("big.txt"));
     }
 
     static void doForegoneSolution(InputStream in) {
@@ -21,7 +21,7 @@ public class Solution {
             String line = scanner.nextLine();
             final long number = Long.parseLong(line);
             final String answer = findNumbersWithout4(number, 0);
-            System.out.println("Case #" + (currentCase++) + ": " + answer);
+            System.out.println("Case #" + (currentCase++) + ": " + answer + " - " + number);
         }
 
         scanner.close();
@@ -31,11 +31,18 @@ public class Solution {
         if (hasNotAFour(n1) && (hasNotAFour(n2))) {
             return n1 + " " + n2;
         }
-        return findNumbersWithout4(n1 - 1, n2 + 1);
+        final long multiple = findMultiple(String.valueOf(n1));
+
+        return findNumbersWithout4(n1 - multiple - 1, n2 + multiple + 1);
     }
 
     private static boolean hasNotAFour(long n) {
         return !String.valueOf(n).contains("4");
+    }
+
+    static long findMultiple(String n) {
+        int index = n.indexOf('4');
+        return (long) Math.pow(10, n.length() - index - 1);
     }
 
 }
