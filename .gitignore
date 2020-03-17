@@ -1,6 +1,7 @@
 # General Files
 .DS_Store
 
+
 # IntelliJ
 .idea
 *.iml
@@ -13,3 +14,9 @@ target/
 .gradle/
 build/
 out/
+
+# Visual Studio Code
+.classpath
+.settings
+.project
+bin/
