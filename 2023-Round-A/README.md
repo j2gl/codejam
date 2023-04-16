@@ -1,5 +1,7 @@
 # Colliding Encoding
 
+Source: [Google Code Jam - Colliding Encoding](https://codingcompetitions.withgoogle.com/codejam/round/0000000000c95b94/0000000000cad7cf)
+
 ## Problem
 
 Alan just had his first cryptography class in school today. He decided to apply what he learned and come up with his own cipher. He will map each English letter from A to Z to a decimal digit 0
